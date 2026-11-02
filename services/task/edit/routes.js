@@ -1,9 +1,10 @@
 // FR-04: GET /tasks/:id, PATCH /tasks/:id (title, description, dueDate, priority, status)
-// Allowed for the task owner (creator) or an assignee.
+// Authorization via RBAC (SEC-REQ-03): task owner, an assignee, or a project Admin/Team Manager.
 const express = require('express');
 const db = require('../../../src/db');
 const { requireAuth } = require('../../../src/middleware/auth');
 const { badRequest, forbidden, notFound } = require('../../../src/errors');
+const { authorizeTask } = require('../rbac');
 const { getMemberRole } = require('../../project/model');
 const { toTask, PRIORITIES } = require('../create/routes');
 
@@ -25,12 +26,9 @@ router.get('/tasks/:id', requireAuth, async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
-router.patch('/tasks/:id', requireAuth, async (req, res, next) => {
+router.patch('/tasks/:id', requireAuth, authorizeTask('modify'), async (req, res, next) => {
   try {
-    const t = await loadTask(req.params.id);
-    const isOwner = t.creator_id === req.user.id;
-    const isAssignee = (await db.query('SELECT 1 FROM task_assignees WHERE task_id = $1 AND user_id = $2', [t.id, req.user.id])).rows.length > 0;
-    if (!isOwner && !isAssignee) throw forbidden('Only the task owner or an assignee may edit this task');
+    const t = req.task;
     const b = req.body || {};
     const sets = []; const vals = []; const d = {};
     const add = (col, v) => { vals.push(v); sets.push(`${col} = $${vals.length}`); };
