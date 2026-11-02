@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard - Task Manager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header>
+  <p><strong>Task Manager</strong></p>
+  <nav aria-label="Main">
+    <a href="login.html">Log in</a>
+    <a href="board.html">Task board</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+<main id="main">
+<h1>Dashboard</h1>
+<p id="status" role="status" aria-live="polite" class="hint">Loading your task summary...</p>
+<table id="summary" hidden>
+  <caption>Your tasks by status</caption>
+  <thead><tr><th scope="col">Status</th><th scope="col">Tasks</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">To do</th><td id="todo">0</td></tr>
+    <tr><th scope="row">In progress</th><td id="in_progress">0</td></tr>
+    <tr><th scope="row">Done</th><td id="done">0</td></tr>
+  </tbody>
+  <tfoot><tr><th scope="row">Total</th><td id="total">0</td></tr></tfoot>
+</table>
+<script>
+(function () {
+  var status = document.getElementById('status');
+  var token = null;
+  try { token = window.sessionStorage.getItem('accessToken'); } catch (e) { /* storage blocked */ }
+  if (!token) { status.textContent = 'Please log in to see your dashboard.'; return; }
+  var req = new XMLHttpRequest();
+  req.open('GET', '/dashboard');
+  req.setRequestHeader('Authorization', 'Bearer ' + token);
+  req.onload = function () {
+    if (req.status === 401) { window.location.href = 'login.html'; return; }
+    if (req.status !== 200) { status.textContent = 'Could not load the dashboard. Please try again.'; return; }
+    var d = JSON.parse(req.responseText);
+    ['todo', 'in_progress', 'done'].forEach(function (k) { document.getElementById(k).textContent = d.byStatus[k]; });
+    document.getElementById('total').textContent = d.total;
+    document.getElementById('summary').hidden = false;
+    status.textContent = '';
+  };
+  req.onerror = function () { status.textContent = 'Could not reach the server. Please try again.'; };
+  req.send();
+})();
+</script>
+</main>
+</body>
+</html>
