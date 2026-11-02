@@ -1,0 +1,16 @@
+:root { --fg: #1a1a1a; --bg: #ffffff; --accent: #0b57d0; --muted: #444444; --border: #767676; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 1rem/1.5 system-ui, sans-serif; color: var(--fg); background: var(--bg); }
+.skip-link { position: absolute; left: -999px; }
+.skip-link:focus { left: 1rem; top: 1rem; background: var(--bg); padding: .5rem; }
+header, main { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+nav a { margin-right: 1rem; color: var(--accent); }
+a { color: var(--accent); }
+label { display: block; margin-top: 1rem; font-weight: 600; }
+input, select, textarea, button { font: inherit; padding: .5rem; border: 2px solid var(--border); border-radius: 4px; }
+button { background: var(--accent); color: #fff; border-color: var(--accent); cursor: pointer; }
+:focus-visible { outline: 3px solid #b3261e; outline-offset: 2px; }
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+.board section { border: 1px solid var(--border); padding: .75rem; border-radius: 4px; }
+.hint { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

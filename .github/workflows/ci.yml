@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # NFR-05: fail the build if backend line coverage drops below 80%.
+      - name: Unit tests with 80% coverage gate
+        run: npx jest --coverage --coverageThreshold='{"global":{"lines":80}}'
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # NFR-08: automated WCAG 2.1 AA audit of the web client (axe-core), zero critical/serious violations.
+      - run: npm install
+        working-directory: web
+      - run: npm run audit
+        working-directory: web

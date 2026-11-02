@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task board - Task Manager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header>
+  <p><strong>Task Manager</strong></p>
+  <nav aria-label="Main">
+    <a href="login.html">Log in</a>
+    <a href="board.html">Task board</a>
+  </nav>
+</header>
+<main id="main">
+<h1>Task board</h1>
+<form role="search" aria-label="Search tasks" action="board.html" method="get">
+  <label for="q">Search tasks by keyword</label>
+  <input id="q" name="q" type="search">
+  <button type="submit">Search</button>
+</form>
+<div class="board">
+  <section aria-labelledby="todo-h"><h2 id="todo-h">To do</h2>
+    <ul><li><a href="task.html">Write project report</a> <span class="hint">High priority</span></li></ul></section>
+  <section aria-labelledby="prog-h"><h2 id="prog-h">In progress</h2>
+    <ul><li><a href="task.html">Fix login bug</a> <span class="hint">Medium priority</span></li></ul></section>
+  <section aria-labelledby="done-h"><h2 id="done-h">Done</h2>
+    <p class="hint">No tasks yet.</p></section>
+</div>
+</main>
+</body>
+</html>
