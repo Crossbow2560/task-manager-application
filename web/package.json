@@ -1,0 +1,7 @@
+{
+  "name": "task-manager-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": { "audit": "node audit.js" },
+  "devDependencies": { "axe-core": "^4.10.0", "jsdom": "^24.1.0" }
+}
