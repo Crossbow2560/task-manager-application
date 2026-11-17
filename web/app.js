@@ -44,24 +44,79 @@
       return response.json();
     }).then(function (demo) {
       if (!demo || !demo.accounts) return;
-      var section = document.createElement('section');
-      section.className = 'demo-logins';
-      section.setAttribute('aria-labelledby', 'demo-login-heading');
-      section.innerHTML = '<h2 id="demo-login-heading">Try a demo account</h2><p class="meta">Choose a role to log in instantly to the prepared demo workspace.</p><div class="stack">' + demo.accounts.map(function (a) {
-        return '<button class="secondary demo-login" type="button" data-email="' + esc(a.email) + '"><strong>' + esc(a.name) + '</strong><span class="meta">' + esc(a.description) + '</span></button>';
-      }).join('') + '</div>';
-      document.querySelector('.auth').insertBefore(section, document.getElementById('login-form'));
-      section.querySelectorAll('button').forEach(function (button) {
+      var input = document.getElementById('email');
+      var field = document.createElement('div');
+      field.className = 'account-field';
+      input.parentNode.insertBefore(field, input);
+      field.appendChild(input);
+      var picker = document.createElement('div');
+      picker.id = 'account-picker';
+      picker.className = 'account-picker';
+      picker.setAttribute('role', 'listbox');
+      picker.setAttribute('aria-label', 'Available accounts');
+      picker.hidden = true;
+      var names = {
+        'admin@demo.test':'Administrator',
+        'manager@demo.test':'Project manager',
+        'member@demo.test':'Team member',
+        'temporary@demo.test':'Temporary user',
+        'outsider@demo.test':'Outside project'
+      };
+      picker.innerHTML = demo.accounts.map(function (a) {
+        return '<button class="account-choice" role="option" aria-selected="false" tabindex="-1" type="button" data-email="' + esc(a.email) + '"><strong>' + esc(names[a.email] || a.name) + '</strong><span>' + esc(a.email) + '</span></button>';
+      }).join('');
+      field.appendChild(picker);
+      input.setAttribute('role', 'combobox');
+      input.setAttribute('aria-autocomplete', 'list');
+      input.setAttribute('aria-controls', picker.id);
+      input.setAttribute('aria-expanded', 'false');
+      input.setAttribute('autocomplete', 'off');
+      input.placeholder = 'Enter email or choose an account';
+      function hideAccounts() { picker.hidden = true; input.setAttribute('aria-expanded', 'false'); }
+      function showAccounts() {
+        var query = input.value.trim().toLowerCase();
+        var visible = 0;
+        picker.querySelectorAll('button').forEach(function (button) {
+          button.hidden = !!query && button.textContent.toLowerCase().indexOf(query) === -1;
+          if (!button.hidden) visible++;
+        });
+        picker.hidden = visible === 0;
+        input.setAttribute('aria-expanded', visible ? 'true' : 'false');
+      }
+      input.addEventListener('focus', showAccounts);
+      input.addEventListener('click', showAccounts);
+      input.addEventListener('input', showAccounts);
+      input.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') hideAccounts();
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault(); showAccounts();
+          var choices = Array.from(picker.querySelectorAll('button')).filter(function (b) { return !b.hidden; });
+          if (choices.length) choices[event.key === 'ArrowDown' ? 0 : choices.length - 1].focus();
+        }
+      });
+      field.addEventListener('focusout', function (event) { if (!field.contains(event.relatedTarget)) hideAccounts(); });
+      document.addEventListener('click', function (event) { if (!field.contains(event.target)) hideAccounts(); });
+      picker.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('keydown', function (event) {
+          var choices = Array.from(picker.querySelectorAll('button')).filter(function (b) { return !b.hidden; });
+          var index = choices.indexOf(button);
+          if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            choices[(index + (event.key === 'ArrowDown' ? 1 : choices.length - 1)) % choices.length].focus();
+          }
+          if (event.key === 'Escape') { event.preventDefault(); input.focus(); hideAccounts(); }
+        });
         button.addEventListener('click', async function () {
-          var buttons = section.querySelectorAll('button');
+          var buttons = picker.querySelectorAll('button');
           buttons.forEach(function (b) { b.disabled = true; });
-          message('');
+          input.value = button.dataset.email;
+          hideAccounts(); message('');
           try {
             var r = await api('/demo/login', 'POST', { email:button.dataset.email });
             saveToken(r.accessToken);
             location.href = 'dashboard.html';
           } catch (e) {
-            message(e.message || 'Could not log in to the demo.');
+            message(e.message || 'Could not sign in.');
             buttons.forEach(function (b) { b.disabled = false; });
           }
         });

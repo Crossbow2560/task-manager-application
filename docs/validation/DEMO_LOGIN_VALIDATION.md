@@ -1,5 +1,11 @@
 # One-click local demo login validation
 
+## Current email-field account chooser
+
+The standalone account-button section has been removed. The regular login form remains visible, and clicking/focusing the email field opens a compact account list. Choosing a role signs in through the same guarded endpoint. Ordinary email typing still supports manual password login. The chooser filters typed text, supports arrow keys/Enter/Escape, and closes on focus/click outside it.
+
+Current browser validation: **21/21 scenarios passed** across Chromium, Firefox and WebKit (five role logins, keyboard/filter/dismiss interaction, and manual-email flow in each engine). Login-page accessibility was audited with the chooser open. See `evidence/account-picker-browser.log`; the adjacent login screenshot shows the current chooser. The earlier button-layout validation below is retained as historical evidence.
+
 This is an incremental validation note for the demo-login addition. The four original captured final reports remain tied to their documented source/run; this note does not claim that their performance benchmarks were rerun for this UI convenience feature.
 
 - Full backend regression: **184 tests / 25 suites passed**, with direct TLS tests enabled through OpenSSL on PATH.
