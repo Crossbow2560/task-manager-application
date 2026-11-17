@@ -46,12 +46,12 @@ async function final(page){
  await page.locator('#comments').scrollIntoViewIfNeeded();await banner(page,'5. Collaboration with persisted comments','Author, timestamp and comment are loaded from the database after each update.');await wait(6000);
  await page.goto(projectUrl);await page.locator('.task-card').waitFor();
  await page.getByLabel('Search tasks',{exact:true}).fill('Review');await page.getByLabel('Status',{exact:true}).selectOption('in_progress');await page.locator('#filters').getByLabel('Priority',{exact:true}).selectOption('high');await page.getByRole('button',{name:'Apply filters',exact:true}).click();
- await page.locator('#result-count').getByText('1 task',{exact:true}).waitFor();await banner(page,'6. Search and combined filters','Keyword, status, priority, assignee and due-date filters operate on the same persisted task list.');await wait(7000);
+  await page.locator('#result-count').getByText('1 task',{exact:true}).waitFor();await page.locator('#task-board').scrollIntoViewIfNeeded();await banner(page,'6. Search and combined filters','Keyword, status, priority, assignee and due-date filters operate on the same persisted task list.');await wait(7000);
  await page.goto(base+'/dashboard.html');await page.locator('.stats').waitFor();await banner(page,'7. Live task-count dashboard','The task appears under In progress. Counts come from the authenticated dashboard API.');await wait(7000);
  await page.goto(taskUrl);await page.getByLabel('Status',{exact:true}).selectOption('done');await page.getByRole('button',{name:'Save changes',exact:true}).click();await page.getByRole('alert').filter({hasText:'Task saved'}).waitFor();
- await page.goto(projectUrl);await page.locator('#column-done').waitFor();await banner(page,'8. Completed work is visible on the board','The task moved from To do to In progress to Done through actual API requests.');await wait(7000);
+  await page.goto(projectUrl);await page.locator('#column-done').waitFor();await page.locator('#task-board').scrollIntoViewIfNeeded();await banner(page,'8. Completed work is visible on the board','The task moved from To do to In progress to Done through actual API requests.');await wait(7000);
  await page.goto(base+'/notifications.html');await page.getByRole('heading',{name:'Notifications',exact:true}).waitFor();await banner(page,'9. Reminder notifications','Assigned tasks due soon generate in-app reminders. SMTP dispatch and failure retry are validated separately.');await wait(6000);
- await page.goto(projectUrl);await page.locator('.task-card').waitFor();await banner(page,'Final application: connected, tested and reproducible','See docs/ for the four reports and recorded validation limits. Original SRS, SAD and Test Plan remain unchanged.');
+  await page.goto(projectUrl);await page.locator('.task-card').waitFor();await page.locator('#task-board').scrollIntoViewIfNeeded();await banner(page,'Final application: connected, tested and reproducible','See docs/ for the four reports and recorded validation limits. Original SRS, SAD and Test Plan remain unchanged.');
 }
 async function historical(page){
  const app=express();app.use(express.json());
