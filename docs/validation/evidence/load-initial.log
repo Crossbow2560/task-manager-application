@@ -1,0 +1,9 @@
+NFR-01 load: 100 concurrent users (think 1000 ms), 59088 requests, 1 errors
+avg 11.0 ms | p50 9.4 | p95 20.8 | max 416.7 | 98 req/s
+elapsed 601.9 s
+  GET /projects    avg 6 ms  p95 12 ms
+  GET /dashboard   avg 6 ms  p95 11 ms
+  GET tasks        avg 16 ms  p95 24 ms
+  POST task        avg 13 ms  p95 21 ms
+  GET tasks?q=     avg 14 ms  p95 22 ms
+FAIL: p95 20.8 ms (limit 300) or errors present

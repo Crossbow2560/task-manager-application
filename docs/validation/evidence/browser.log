@@ -1,0 +1,20 @@
+
+Running 9 tests using 1 worker
+
+(node:14136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\submission.spec.js:37:1 › TC-01..07,13..20: complete browser workflow with persisted API data (7.2s)
+  ok 2 [chromium] › e2e\submission.spec.js:108:1 › SEC and FR-14: invalid login, admin deactivation, existing-session rejection (2.7s)
+  ok 3 [chromium] › e2e\submission.spec.js:131:1 › TC-26: login accessibility, validation errors and keyboard entry (1.2s)
+(node:29268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 4 [firefox] › e2e\submission.spec.js:37:1 › TC-01..07,13..20: complete browser workflow with persisted API data (12.3s)
+  ok 5 [firefox] › e2e\submission.spec.js:108:1 › SEC and FR-14: invalid login, admin deactivation, existing-session rejection (4.4s)
+  ok 6 [firefox] › e2e\submission.spec.js:131:1 › TC-26: login accessibility, validation errors and keyboard entry (2.1s)
+(node:34384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 7 [webkit] › e2e\submission.spec.js:37:1 › TC-01..07,13..20: complete browser workflow with persisted API data (10.8s)
+  ok 8 [webkit] › e2e\submission.spec.js:108:1 › SEC and FR-14: invalid login, admin deactivation, existing-session rejection (4.0s)
+  ok 9 [webkit] › e2e\submission.spec.js:131:1 › TC-26: login accessibility, validation errors and keyboard entry (1.6s)
+
+  9 passed (51.9s)

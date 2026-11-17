@@ -1,0 +1,150 @@
+{
+  "started": "2026-11-17T06:59:13.796Z",
+  "finished": "2026-11-17T06:59:21.983Z",
+  "node": "v24.19.0",
+  "platform": "win32",
+  "results": [
+    {
+      "id": "TC-01/TC-02",
+      "name": "Registration/login and token issuance",
+      "status": "PASS",
+      "detail": {
+        "registered": 3,
+        "tokensIssued": true
+      }
+    },
+    {
+      "id": "TC-15",
+      "name": "Project creation and listing",
+      "status": "PASS",
+      "detail": {
+        "projectId": 2,
+        "ownerRole": "team_manager"
+      }
+    },
+    {
+      "id": "TC-20",
+      "name": "Manager adds member; outsider rejected",
+      "status": "PASS",
+      "detail": "Member list and authorization verified"
+    },
+    {
+      "id": "TC-03",
+      "name": "Create task with durable fields",
+      "status": "PASS",
+      "detail": {
+        "taskId": 2,
+        "status": "todo"
+      }
+    },
+    {
+      "id": "TC-04",
+      "name": "Assign registered project member",
+      "status": "PASS",
+      "detail": "Assignment persisted"
+    },
+    {
+      "id": "TC-05/TC-13",
+      "name": "Assignee edits title and lifecycle status",
+      "status": "PASS",
+      "detail": "To do -> In progress -> Done -> To do; title updated"
+    },
+    {
+      "id": "TC-16",
+      "name": "Comment is visible with author",
+      "status": "PASS",
+      "detail": [
+        {
+          "body": "Committed comment",
+          "authorId": 5
+        }
+      ]
+    },
+    {
+      "id": "TC-06/TC-17",
+      "name": "Keyword and all four filters combine",
+      "status": "PASS",
+      "detail": "Search + status + priority + assignee + date range returned exactly the assigned task"
+    },
+    {
+      "id": "TC-18",
+      "name": "Dashboard per-status counts",
+      "status": "PASS",
+      "detail": {
+        "total": 1,
+        "byStatus": {
+          "todo": 1,
+          "in_progress": 0,
+          "done": 0
+        }
+      }
+    },
+    {
+      "id": "TC-10",
+      "name": "Salted adaptive password hashes",
+      "status": "PASS",
+      "detail": {
+        "hashesDistinct": true,
+        "bcryptCost": 10
+      }
+    },
+    {
+      "id": "TC-11",
+      "name": "Unauthorized task edits rejected without mutation",
+      "status": "PASS",
+      "detail": "403; original title preserved"
+    },
+    {
+      "id": "TC-12",
+      "name": "Five failures lock out account for 15 minutes",
+      "status": "PASS",
+      "detail": "Sixth attempt with correct password rejected (423); lock duration/expiry also covered by Jest"
+    },
+    {
+      "id": "TC-07",
+      "name": "Scheduled reminder appears in-app and reaches local SMTP",
+      "status": "PASS",
+      "detail": {
+        "taskId": 2,
+        "inApp": true,
+        "markRead": true,
+        "smtpCaptured": true,
+        "recipient": "member-1794898753797@validation.test",
+        "subject": "Task due soon: Updated system report",
+        "mailId": "4KvZS7krNlidf6P2wY2obr",
+        "dueDate": "2026-11-19"
+      }
+    },
+    {
+      "id": "TC-24",
+      "name": "SIGKILL real Node process, restart, verify committed PostgreSQL data",
+      "status": "PASS",
+      "detail": {
+        "oldPid": 33524,
+        "newPid": 28004,
+        "taskIntact": true,
+        "assigneeIntact": true,
+        "commentIntact": true,
+        "newWriteSucceeded": true
+      }
+    },
+    {
+      "id": "TC-14",
+      "name": "Delete task and confirm 404",
+      "status": "PASS",
+      "detail": "204 then 404"
+    },
+    {
+      "id": "TC-20-remove",
+      "name": "Manager removes member",
+      "status": "PASS",
+      "detail": "204"
+    },
+    {
+      "id": "TC-19",
+      "name": "Admin deactivates user, including active sessions",
+      "status": "PASS",
+      "detail": "Deactivation, new-login rejection and existing-token rejection verified"
+    }
+  ]
+}

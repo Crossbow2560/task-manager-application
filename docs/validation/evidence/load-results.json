@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-11-17T07:21:23.759Z",
+  "database": "PostgreSQL",
+  "users": 100,
+  "thinkMs": 1000,
+  "durationMs": 600000,
+  "count": 58985,
+  "errors": 0,
+  "avgMs": 11.082603741629233,
+  "p50Ms": 9.4546,
+  "p95Ms": 20.9737,
+  "maxMs": 408.0215,
+  "rps": 98.00810184800561,
+  "errorSamples": [],
+  "elapsedMs": 601883,
+  "byLabel": {
+    "GET /projects": {
+      "count": 11797,
+      "errors": 0,
+      "avgMs": 6.481609756717821,
+      "p50Ms": 5.1429,
+      "p95Ms": 11.8903,
+      "maxMs": 402.4689,
+      "rps": 11797,
+      "errorSamples": []
+    },
+    "GET /dashboard": {
+      "count": 11797,
+      "errors": 0,
+      "avgMs": 6.462462151394442,
+      "p50Ms": 5.403,
+      "p95Ms": 10.392,
+      "maxMs": 400.027,
+      "rps": 11797,
+      "errorSamples": []
+    },
+    "GET tasks": {
+      "count": 11797,
+      "errors": 0,
+      "avgMs": 15.923420013562781,
+      "p50Ms": 14.8609,
+      "p95Ms": 23.3998,
+      "maxMs": 372.949,
+      "rps": 11797,
+      "errorSamples": []
+    },
+    "POST task": {
+      "count": 11797,
+      "errors": 0,
+      "avgMs": 13.193711638552154,
+      "p50Ms": 10.8933,
+      "p95Ms": 22.2492,
+      "maxMs": 408.0215,
+      "rps": 11797,
+      "errorSamples": []
+    },
+    "GET tasks?q=": {
+      "count": 11797,
+      "errors": 0,
+      "avgMs": 13.351815147918987,
+      "p50Ms": 11.2118,
+      "p95Ms": 21.7506,
+      "maxMs": 378.0779,
+      "rps": 11797,
+      "errorSamples": []
+    }
+  }
+}

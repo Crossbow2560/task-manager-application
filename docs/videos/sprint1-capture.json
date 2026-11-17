@@ -1,0 +1,13 @@
+{
+  "source": "ea72d56a9c0c16a1f618cb8b218eac64f18d000d",
+  "captured": "2026-11-17T07:11:20.058Z",
+  "mode": "sprint1",
+  "base": "http://127.0.0.1:3102",
+  "target": "Sprint_1_One_Minute.webm",
+  "requestedDurationSeconds": 60,
+  "rawDurationSeconds": 64.774,
+  "description": "Reconstruction of authentic historical API using a separate response viewer; not a historical UI recording.",
+  "finalDurationSeconds": 60.0,
+  "finalizedBy": "FFmpeg lossless stream-copy trim to requested duration; duration checked by decoded frame count / FPS",
+  "qa": "Representative frames inspected for legibility and genuine workflow progression"
+}

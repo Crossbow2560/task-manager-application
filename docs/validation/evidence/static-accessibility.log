@@ -1,0 +1,7 @@
+
+> task-manager-web@0.1.0 audit
+> node audit.js
+
+login.html: 0 critical/serious violations
+board.html: 0 critical/serious violations
+task.html: 0 critical/serious violations

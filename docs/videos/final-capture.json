@@ -1,0 +1,13 @@
+{
+  "source": "8514b64f586d9d3288483ede2adb81b1850a04b8",
+  "captured": "2026-11-17T07:15:00.146Z",
+  "mode": "final",
+  "base": "http://127.0.0.1:3100",
+  "target": "Sprint_2_Two_Minutes.webm",
+  "requestedDurationSeconds": 120,
+  "rawDurationSeconds": 129.17,
+  "description": "Connected final browser application; actual recording date shown.",
+  "finalDurationSeconds": 120.0,
+  "finalizedBy": "FFmpeg lossless stream-copy trim to requested duration; duration checked by decoded frame count / FPS",
+  "qa": "Representative frames inspected for legibility and genuine workflow progression"
+}

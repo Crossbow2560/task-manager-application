@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:3100/dashboard.html",
+  "timestamp": "2026-11-17T07:07:52.803Z",
+  "testEngine": {
+    "name": "axe-core",
+    "version": "4.14.1"
+  },
+  "violations": [],
+  "incomplete": [],
+  "passes": 18
+}

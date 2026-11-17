@@ -1,0 +1,17 @@
+PASS TC-01/TC-02: Registration/login and token issuance
+PASS TC-15: Project creation and listing
+PASS TC-20: Manager adds member; outsider rejected
+PASS TC-03: Create task with durable fields
+PASS TC-04: Assign registered project member
+PASS TC-05/TC-13: Assignee edits title and lifecycle status
+PASS TC-16: Comment is visible with author
+PASS TC-06/TC-17: Keyword and all four filters combine
+PASS TC-18: Dashboard per-status counts
+PASS TC-10: Salted adaptive password hashes
+PASS TC-11: Unauthorized task edits rejected without mutation
+PASS TC-12: Five failures lock out account for 15 minutes
+PASS TC-07: Scheduled reminder appears in-app and reaches local SMTP
+PASS TC-24: SIGKILL real Node process, restart, verify committed PostgreSQL data
+PASS TC-14: Delete task and confirm 404
+PASS TC-20-remove: Manager removes member
+PASS TC-19: Admin deactivates user, including active sessions

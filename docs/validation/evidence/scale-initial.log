@@ -1,0 +1,4 @@
+baseline (1000 users, 10000 tasks): avg 25.8 ms, p95 40.6 ms, 0 errors
+scaled   (10000 users, 100000 tasks): avg 30.7 ms, p95 50.0 ms, 0 errors
+avg degradation: 18.7%
+FAIL: degradation >= 10% or errors present

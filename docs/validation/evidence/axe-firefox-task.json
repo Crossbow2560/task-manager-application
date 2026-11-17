@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:3100/task.html?id=10",
+  "timestamp": "2026-11-17T07:07:55.840Z",
+  "testEngine": {
+    "name": "axe-core",
+    "version": "4.14.1"
+  },
+  "violations": [],
+  "incomplete": [],
+  "passes": 23
+}

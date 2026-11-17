@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-17T07:01:53.614Z",
+  "database": "PostgreSQL",
+  "baseUsers": 1000,
+  "bigUsers": 10000,
+  "perUser": 10,
+  "vus": 20,
+  "requests": 3000,
+  "baseline": {
+    "count": 3000,
+    "errors": 0,
+    "avgMs": 25.83333509999999,
+    "p50Ms": 21.994,
+    "p95Ms": 40.6146,
+    "maxMs": 56.2213,
+    "rps": 769.8229407236336,
+    "elapsedMs": 3899,
+    "byLabel": {}
+  },
+  "scaled": {
+    "count": 3000,
+    "errors": 0,
+    "avgMs": 30.652577300000004,
+    "p50Ms": 26.4075,
+    "p95Ms": 50.0159,
+    "maxMs": 116.5518,
+    "rps": 649.2101276779917,
+    "elapsedMs": 4622,
+    "byLabel": {}
+  },
+  "degradation": 18.655129821004092,
+  "pass": false
+}

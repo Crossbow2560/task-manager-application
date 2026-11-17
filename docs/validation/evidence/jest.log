@@ -1,0 +1,31 @@
+PASS services/task/rbac/rbac.test.js
+PASS services/auth/lockout/lockout.test.js (7.029 s)
+PASS tests/submission.test.js
+PASS services/task/assign/assign.test.js
+PASS services/task/filter/filter.test.js
+PASS services/notifications/notifications.test.js
+PASS services/project/membership/membership.test.js
+PASS services/auth/login/login.test.js
+PASS services/task/status/status.test.js
+PASS services/task/comments/comments.test.js
+PASS services/dashboard/dashboard.test.js
+PASS services/task/edit/edit.test.js
+PASS services/task/delete/delete.test.js
+PASS services/task/search/search.test.js
+PASS services/admin/deactivate/deactivate.test.js
+PASS services/task/create/create.test.js
+PASS services/project/create/project.test.js
+PASS tests/recovery/recovery.test.js
+PASS services/auth/register/register.test.js
+PASS tests/base.test.js
+PASS services/auth/password/password.test.js
+PASS tests/tls.test.js
+PASS services/ops/health/health.test.js
+PASS tests/browser-compat.test.js
+
+Test Suites: 24 passed, 24 total
+Tests:       176 passed, 176 total
+Snapshots:   0 total
+Time:        47.137 s
+Ran all test suites.
+Test results written to: docs\validation\evidence\jest-results.json
