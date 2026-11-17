@@ -1,5 +1,7 @@
 node_modules/
 coverage/
+!docs/reports/coverage/
+!docs/reports/coverage/**
 .env
 WORK_PLAN.md
 *.pem
