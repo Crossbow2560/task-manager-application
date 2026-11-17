@@ -19,7 +19,7 @@
     var response = await fetch(path, { method:method || 'GET', headers:Object.assign({ Accept:'application/json' }, token ? {Authorization:'Bearer '+token} : {}, body === undefined ? {} : {'Content-Type':'application/json'}), body:body === undefined ? undefined : JSON.stringify(body) });
     var data = response.status === 204 ? null : await response.json();
     if (!response.ok) {
-      if (response.status === 401 && path !== '/auth/login') { saveToken(null); location.href = 'login.html?expired=1'; }
+      if (response.status === 401 && path !== '/auth/login' && path !== '/demo/login') { saveToken(null); location.href = 'login.html?expired=1'; }
       var err = data && data.error || {};
       throw new Error((err.message || 'Request failed') + (err.details ? ': ' + Object.values(err.details).join('; ') : ''));
     }
@@ -39,6 +39,34 @@
     bind('login-form', async function (f) { var r = await api('/auth/login','POST',Object.fromEntries(f)); saveToken(r.accessToken); location.href = 'dashboard.html'; });
     bind('register-form', async function (f, form) { await api('/auth/register','POST',Object.fromEntries(f)); document.getElementById('email').value=f.get('email'); form.reset(); form.closest('details').open=false; message('Account created. Log in to continue.',true); document.getElementById('password').focus(); });
     if (params.get('expired')) message('Your session ended. Please log in again.');
+    fetch('/demo/accounts').then(function (response) {
+      if (!response.ok) return null;
+      return response.json();
+    }).then(function (demo) {
+      if (!demo || !demo.accounts) return;
+      var section = document.createElement('section');
+      section.className = 'demo-logins';
+      section.setAttribute('aria-labelledby', 'demo-login-heading');
+      section.innerHTML = '<h2 id="demo-login-heading">Try a demo account</h2><p class="meta">Choose a role to log in instantly to the prepared demo workspace.</p><div class="stack">' + demo.accounts.map(function (a) {
+        return '<button class="secondary demo-login" type="button" data-email="' + esc(a.email) + '"><strong>' + esc(a.name) + '</strong><span class="meta">' + esc(a.description) + '</span></button>';
+      }).join('') + '</div>';
+      document.querySelector('.auth').insertBefore(section, document.getElementById('login-form'));
+      section.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('click', async function () {
+          var buttons = section.querySelectorAll('button');
+          buttons.forEach(function (b) { b.disabled = true; });
+          message('');
+          try {
+            var r = await api('/demo/login', 'POST', { email:button.dataset.email });
+            saveToken(r.accessToken);
+            location.href = 'dashboard.html';
+          } catch (e) {
+            message(e.message || 'Could not log in to the demo.');
+            buttons.forEach(function (b) { b.disabled = false; });
+          }
+        });
+      });
+    }).catch(function () { /* Normal login remains available if the local demo is disabled. */ });
   }
   function newProject() { return '<details><summary>New project</summary><form id="new-project"><label for="project-name">Project name</label><input id="project-name" name="name" maxlength="100" required><div class="actions"><button type="submit">Create project</button></div></form></details>'; }
   function bindProject() { bind('new-project', async function (f) { var p = await api('/projects','POST',Object.fromEntries(f)); location.href='board.html?project='+p.id; }); }

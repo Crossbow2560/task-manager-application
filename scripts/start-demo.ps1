@@ -60,6 +60,9 @@ $env:PORT = "$Port"
 $env:SMTP_HOST = '127.0.0.1'
 $env:SMTP_PORT = '1026'
 $env:REMINDER_SCAN_MS = '5000'
+$env:LOCAL_DEMO_LOGIN = '1'
+$env:LOCAL_DEMO_PASSWORD = $DemoPassword
+$env:HOST = '127.0.0.1'
 Write-Host "Open http://localhost:$Port/login.html"
 Write-Host 'Main demo login: admin@demo.test; teammate: member@demo.test'
 Write-Host 'Local captured email: http://localhost:8026'

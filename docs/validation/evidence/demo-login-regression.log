@@ -1,0 +1,102 @@
+
+> task-manager-application@0.1.0 test
+> jest --coverage --runInBand --coverageReporters=text --coverageReporters=json-summary
+
+PASS services/auth/demo/demo.test.js
+PASS services/auth/lockout/lockout.test.js (6.439 s)
+PASS services/task/rbac/rbac.test.js
+PASS services/task/assign/assign.test.js
+PASS services/task/filter/filter.test.js
+PASS services/task/status/status.test.js
+PASS services/project/membership/membership.test.js
+PASS services/admin/deactivate/deactivate.test.js
+PASS tests/submission.test.js
+PASS services/task/delete/delete.test.js
+PASS services/dashboard/dashboard.test.js
+PASS services/notifications/notifications.test.js
+PASS services/task/comments/comments.test.js
+PASS services/task/edit/edit.test.js
+PASS services/task/create/create.test.js
+PASS services/task/search/search.test.js
+PASS services/auth/login/login.test.js
+PASS services/project/create/project.test.js
+PASS tests/recovery/recovery.test.js
+PASS services/auth/register/register.test.js
+PASS tests/tls.test.js
+PASS tests/base.test.js
+PASS services/auth/password/password.test.js
+PASS services/ops/health/health.test.js
+PASS tests/browser-compat.test.js
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |   96.26 |    89.43 |   95.04 |   97.36 |                   
+ services/admin/deactivate   |     100 |      100 |     100 |     100 |                   
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/auth/demo          |     100 |      100 |     100 |     100 |                   
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/auth/lockout       |     100 |      100 |     100 |     100 |                   
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/auth/login         |     100 |    89.47 |     100 |     100 |                   
+  hooks.js                   |     100 |       50 |     100 |     100 | 20                
+  routes.js                  |     100 |    94.11 |     100 |     100 | 17                
+ services/auth/password      |     100 |      100 |     100 |     100 |                   
+  index.js                   |     100 |      100 |     100 |     100 |                   
+ services/auth/register      |   96.55 |       85 |     100 |   95.83 |                   
+  routes.js                  |   96.55 |       85 |     100 |   95.83 | 30                
+ services/auth/session       |      90 |      100 |     100 |      90 |                   
+  routes.js                  |      90 |      100 |     100 |      90 | 9                 
+ services/dashboard          |   94.11 |      100 |     100 |   92.85 |                   
+  routes.js                  |   94.11 |      100 |     100 |   92.85 | 22                
+ services/notifications      |   88.42 |    60.52 |   88.88 |   88.75 |                   
+  provider.js                |      50 |        0 |   66.66 |      40 | 6-20              
+  queue.js                   |     100 |      100 |     100 |     100 |                   
+  reminders.js               |   88.88 |    72.22 |   85.71 |   93.33 | 50-51             
+  routes.js                  |   95.65 |      100 |     100 |      95 | 14                
+ services/ops/health         |     100 |      100 |     100 |     100 |                   
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/project            |     100 |      100 |     100 |     100 |                   
+  model.js                   |     100 |      100 |     100 |     100 |                   
+ services/project/create     |   94.11 |    85.71 |     100 |   94.11 |                   
+  routes.js                  |   94.11 |    85.71 |     100 |   94.11 | 22                
+ services/project/membership |   98.14 |    94.11 |     100 |     100 |                   
+  routes.js                  |   98.14 |    94.11 |     100 |     100 | 14,39             
+ services/task/assign        |   97.56 |    95.45 |     100 |     100 |                   
+  routes.js                  |   97.56 |    95.45 |     100 |     100 | 29                
+ services/task/comments      |   95.83 |    85.71 |     100 |   95.65 |                   
+  routes.js                  |   95.83 |    85.71 |     100 |   95.65 | 37                
+ services/task/create        |     100 |    97.29 |     100 |     100 |                   
+  routes.js                  |     100 |    97.29 |     100 |     100 | 13                
+ services/task/delete        |   92.85 |      100 |     100 |   92.85 |                   
+  routes.js                  |   92.85 |      100 |     100 |   92.85 | 16                
+ services/task/edit          |   98.36 |    95.12 |     100 |     100 |                   
+  routes.js                  |   98.36 |    95.12 |     100 |     100 | 15,32             
+ services/task/filter        |     100 |      100 |     100 |     100 |                   
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/task/rbac          |     100 |      100 |     100 |     100 |                   
+  index.js                   |     100 |      100 |     100 |     100 |                   
+ services/task/search        |     100 |    84.21 |     100 |     100 |                   
+  listing.js                 |     100 |    76.92 |     100 |     100 | 13-16,31          
+  routes.js                  |     100 |      100 |     100 |     100 |                   
+ services/task/status        |     100 |       75 |     100 |     100 |                   
+  routes.js                  |     100 |       75 |     100 |     100 | 15                
+ src                         |     100 |    86.84 |     100 |     100 |                   
+  app.js                     |     100 |      100 |     100 |     100 |                   
+  config.js                  |     100 |      100 |     100 |     100 |                   
+  errors.js                  |     100 |       25 |     100 |     100 | 11-13             
+  tls.js                     |     100 |       90 |     100 |     100 | 22,32             
+ src/db                      |   71.87 |    42.85 |   55.55 |    91.3 |                   
+  index.js                   |   81.81 |       50 |      75 |     100 | 9                 
+  migrate.js                 |   66.66 |       40 |      40 |   86.66 | 21-22             
+ src/middleware              |   97.05 |    90.47 |     100 |   96.42 |                   
+  auth.js                    |   95.45 |    86.66 |     100 |   94.44 | 27                
+  error.js                   |     100 |      100 |     100 |     100 |                   
+ src/routes                  |   94.11 |       75 |     100 |     100 |                   
+  index.js                   |   94.11 |       75 |     100 |     100 | 12,24             
+-----------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 25 passed, 25 total
+Tests:       184 passed, 184 total
+Snapshots:   0 total
+Time:        45.202 s, estimated 54 s
+Ran all test suites.

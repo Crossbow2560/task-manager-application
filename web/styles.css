@@ -21,6 +21,10 @@ h3 { font-size:1rem; margin:.2rem 0; }
 .panel,details { background:var(--paper); border:1px solid var(--border); border-radius:10px; padding:1.3rem; margin-bottom:1.4rem; }
 .auth { max-width:460px; margin:2rem auto; }
 .auth h1 { font-size:2rem; }
+.demo-logins { border-bottom:1px solid var(--border); padding-bottom:1.3rem; margin:1.5rem 0; }
+.demo-login { text-align:left; }
+.demo-login strong,.demo-login span { display:block; }
+.demo-login .meta { margin-top:.2rem; font-size:.8rem; font-weight:400; }
 .stack { display:grid; gap:1rem; }
 .row { display:flex; flex-wrap:wrap; gap:1rem; align-items:end; }
 .row>* { flex:1; min-width:150px; }

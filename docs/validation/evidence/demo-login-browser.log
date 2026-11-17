@@ -1,0 +1,12 @@
+
+Running 5 tests using 1 worker
+
+(node:35332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\demo-login.spec.js:12:3 › One-click login as Demo Admin (2.2s)
+  ok 2 [chromium] › e2e\demo-login.spec.js:12:3 › One-click login as Demo Manager (608ms)
+  ok 3 [chromium] › e2e\demo-login.spec.js:12:3 › One-click login as Demo Teammate (607ms)
+  ok 4 [chromium] › e2e\demo-login.spec.js:12:3 › One-click login as Temporary Demo User (583ms)
+  ok 5 [chromium] › e2e\demo-login.spec.js:12:3 › One-click login as Outside Project User (631ms)
+
+  5 passed (6.3s)

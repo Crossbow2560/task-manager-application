@@ -14,6 +14,8 @@ Enter a demo-only password when prompted. First use creates five accounts and a 
 
 Open `http://localhost:3100/login.html`; the local email inbox is `http://localhost:8026`.
 
+The login page now has **Try a demo account** buttons. Click **Demo Admin** for the main presentation, or pick another role. No typing or separate submit is needed. The starter enables these shortcuts only for the dedicated local demo database and binds the demo server to loopback. Normal password login/registration remains available. Production mode disables the shortcut endpoints; passwords are not sent to the frontend or embedded in its assets.
+
 | Login | Purpose |
 |---|---|
 | admin@demo.test | Main presentation account: global admin plus owner/Team Manager of the sample project |

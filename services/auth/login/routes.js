@@ -12,7 +12,7 @@ const router = express.Router();
 let dummyHash;
 const getDummyHash = () => (dummyHash = dummyHash || hashPassword('dummy-password-1'));
 
-router.post('/auth/login', async (req, res, next) => {
+async function login(req, res, next) {
   try {
     const { email, password } = req.body || {};
     if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
@@ -35,6 +35,7 @@ router.post('/auth/login', async (req, res, next) => {
       user: { id: user.id, email: user.email, displayName: user.display_name, role: user.role },
     });
   } catch (e) { next(e); }
-});
+}
+router.post('/auth/login', login);
 
-module.exports = { router };
+module.exports = { router, login };
