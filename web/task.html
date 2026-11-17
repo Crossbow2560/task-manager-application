@@ -5,32 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Task detail - Task Manager</title>
 <link rel="stylesheet" href="styles.css">
+<script src="app.js" defer></script>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to main content</a>
-<header>
-  <p><strong>Task Manager</strong></p>
-  <nav aria-label="Main">
-    <a href="login.html">Log in</a>
-    <a href="board.html">Task board</a>
-  </nav>
-</header>
-<main id="main">
-<h1>Task detail</h1>
-<form action="/tasks/1" method="post">
-  <label for="title">Title</label>
-  <input id="title" name="title" type="text" value="Write project report" required>
-  <label for="description">Description</label>
-  <textarea id="description" name="description" rows="4"></textarea>
-  <label for="due">Due date</label>
-  <input id="due" name="dueDate" type="date">
-  <label for="priority">Priority</label>
-  <select id="priority" name="priority"><option>Low</option><option selected>Medium</option><option>High</option></select>
-  <label for="status">Status</label>
-  <select id="status" name="status"><option>To do</option><option>In progress</option><option>Done</option></select>
-  <p><button type="submit">Save changes</button></p>
-</form>
-<section aria-labelledby="comments-h"><h2 id="comments-h">Comments</h2><p class="hint">No comments yet.</p></section>
-</main>
+<a class="skip-link" tabindex="0" href="#main">Skip to main content</a>
+<header><a class="brand" href="dashboard.html">Task Manager</a><nav aria-label="Main"><a href="dashboard.html">Dashboard</a><a href="board.html">Task board</a><a href="notifications.html">Notifications</a></nav><div id="account"></div></header>
+<main id="main" tabindex="-1"><h1>Task detail</h1><p role="status">Loading...</p></main>
+<footer>Task Manager <span aria-hidden="true">/</span> Plan. Assign. Finish.</footer>
 </body>
 </html>

@@ -8,22 +8,38 @@
     "migrate": "node src/db/migrate.js",
     "perf:load": "node scripts/perf/loadtest.js",
     "perf:scale": "node scripts/perf/scale.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:browser": "playwright test",
+    "validate:system": "node scripts/validation/system.js",
+    "validate:monitor": "node scripts/validation/monitor.js",
+    "seed:demo": "node scripts/seed-demo.js",
+    "record:sprint1": "node scripts/validation/record-videos.js sprint1",
+    "record:sprint2": "node scripts/validation/record-videos.js final"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^10.6.0",
     "pg": "^8.11.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
     "jest": "^29.7.0",
     "pg-mem": "^2.8.1",
     "supertest": "^7.0.0"
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/*.test.js"],
-    "collectCoverageFrom": ["src/**/*.js", "services/**/*.js", "!**/*.test.js", "!src/server.js"]
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "services/**/*.js",
+      "!**/*.test.js",
+      "!src/server.js"
+    ]
   }
 }

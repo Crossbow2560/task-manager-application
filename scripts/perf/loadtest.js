@@ -12,6 +12,7 @@ async function main() {
   const requests = arg('requests', 3000);
   const limit = arg('p95', 300);
   const thinkMs = arg('think', 1000);
+  const durationMs = arg('duration', 0) * 1000;
   const { server, baseUrl } = await startServer();
   const { userIds, projectIds } = await seed({ users, tasks: users * 10, tag: `nfr01-${Date.now()}` });
   const tokens = userIds.map(tokenFor);
@@ -25,11 +26,13 @@ async function main() {
     (vu) => ({ label: 'GET tasks?q=', path: `/projects/${projectOf(vu)}/tasks?q=report`, token: tokens[vu] }),
     (vu, n) => ({ label: 'POST task', method: 'POST', path: `/projects/${projectOf(vu)}/tasks`, token: tokens[vu], body: { title: `New ${n}` } }),
   ];
-  const r = await runLoad({ baseUrl, concurrency: users, requests, thinkMs, makeRequest: (vu, n) => mix[n % mix.length](vu, n) });
+  const r = await runLoad({ baseUrl, concurrency: users, requests, thinkMs, durationMs, makeRequest: (vu, n) => mix[n % mix.length](vu, n) });
   server.close();
 
   console.log(`NFR-01 load: ${users} concurrent users (think ${thinkMs} ms), ${r.count} requests, ${r.errors} errors`);
   console.log(`avg ${r.avgMs.toFixed(1)} ms | p50 ${r.p50Ms.toFixed(1)} | p95 ${r.p95Ms.toFixed(1)} | max ${r.maxMs.toFixed(1)} | ${r.rps.toFixed(0)} req/s`);
+  console.log(`elapsed ${(r.elapsedMs/1000).toFixed(1)} s`);
+  if (process.env.PERF_REPORT_FILE) require('fs').writeFileSync(process.env.PERF_REPORT_FILE, JSON.stringify({timestamp:new Date().toISOString(),database:process.env.DATABASE_URL?'PostgreSQL':'pg-mem',users,thinkMs,durationMs,...r},null,2));
   for (const [l, x] of Object.entries(r.byLabel)) console.log(`  ${l.padEnd(16)} avg ${x.avgMs.toFixed(0)} ms  p95 ${x.p95Ms.toFixed(0)} ms`);
   const pass = r.p95Ms <= limit && r.errors === 0;
   console.log(pass ? `PASS: p95 <= ${limit} ms` : `FAIL: p95 ${r.p95Ms.toFixed(1)} ms (limit ${limit}) or errors present`);

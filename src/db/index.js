@@ -1,4 +1,7 @@
-const { Pool } = require('pg');
+const { Pool, types } = require('pg');
+// PostgreSQL DATE is a calendar date, not a local-midnight timestamp. Keeping it
+// as YYYY-MM-DD avoids shifting the due date when JSON serializes a JS Date.
+types.setTypeParser(1082, (value) => value);
 const config = require('../config');
 
 let pool;

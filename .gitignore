@@ -3,3 +3,6 @@ coverage/
 .env
 WORK_PLAN.md
 *.pem
+test-results/
+playwright-report/
+docs/videos/raw/

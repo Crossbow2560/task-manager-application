@@ -96,3 +96,17 @@ test('scheduler starts, scans and can be stopped', async () => {
   clearInterval(t);
   await reminders.queue.drain();
 });
+
+test('outbound failure remains pending and retries without duplicating the notification', async () => {
+  const t = await createTask(app, bob, project.id, { title: 'Retry delivery' });
+  const job = { taskId:t.id, userId:bob.id, email:bob.email, title:t.title, dueDate:'2026-12-01' };
+  let calls = 0;
+  provider.setProvider({send:async()=>{calls++;if(calls===1)throw new Error('temporary SMTP failure');}});
+  await expect(reminders.deliver(job)).rejects.toThrow('temporary SMTP failure');
+  const pending = await db.query('SELECT sent_at FROM notifications WHERE task_id = $1',[t.id]);
+  expect(pending.rows[0].sent_at).toBeNull();
+  await reminders.deliver(job);
+  await reminders.deliver(job);
+  expect(calls).toBe(2);
+  expect((await db.query('SELECT * FROM notifications WHERE task_id = $1',[t.id])).rows).toHaveLength(1);
+});

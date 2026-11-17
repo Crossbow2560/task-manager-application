@@ -6,6 +6,14 @@ const { badRequest, forbidden, notFound } = require('../../../src/errors');
 
 const router = express.Router();
 
+router.get('/admin/users', requireAuth, async (req, res, next) => {
+  try {
+    if (req.user.role !== 'admin') throw forbidden('Admin role required');
+    const { rows } = await db.query('SELECT id, email, display_name, role, is_active FROM users ORDER BY id');
+    res.json(rows.map((u) => ({ id: u.id, email: u.email, displayName: u.display_name, role: u.role, isActive: u.is_active })));
+  } catch (e) { next(e); }
+});
+
 router.patch('/admin/users/:id/deactivate', requireAuth, async (req, res, next) => {
   try {
     if (req.user.role !== 'admin') throw forbidden('Admin role required');

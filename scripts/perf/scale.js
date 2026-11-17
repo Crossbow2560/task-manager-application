@@ -39,6 +39,7 @@ async function main() {
 
   const degradation = ((b.avgMs - a.avgMs) / a.avgMs) * 100;
   const pass = degradation < 10 && a.errors + b.errors === 0;
+  if (process.env.PERF_REPORT_FILE) require('fs').writeFileSync(process.env.PERF_REPORT_FILE,JSON.stringify({timestamp:new Date().toISOString(),database:process.env.DATABASE_URL?'PostgreSQL':'pg-mem',baseUsers,bigUsers,perUser,vus,requests,baseline:a,scaled:b,degradation,pass},null,2));
   console.log(`avg degradation: ${degradation.toFixed(1)}%`);
   console.log(pass ? 'PASS: < 10% degradation' : 'FAIL: degradation >= 10% or errors present');
   process.exit(pass ? 0 : 1);

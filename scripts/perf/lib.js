@@ -71,23 +71,25 @@ function request(agent, baseUrl, spec) {
       method, agent,
       headers: { Authorization: token, ...(payload ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) } : {}) },
     }, (res) => {
+      let errorBody = '';
+      if (res.statusCode >= 400) res.on('data', (chunk) => { if (errorBody.length < 1000) errorBody += chunk; });
       res.resume();
-      res.on('end', () => resolve({ ms: Number(process.hrtime.bigint() - started) / 1e6, ok: res.statusCode < 400, label: spec.label }));
+      res.on('end', () => resolve({ ms: Number(process.hrtime.bigint() - started) / 1e6, ok: res.statusCode < 400, status:res.statusCode, errorBody, label: spec.label }));
     });
-    req.on('error', () => resolve({ ms: Number(process.hrtime.bigint() - started) / 1e6, ok: false, label: spec.label }));
+    req.on('error', (e) => resolve({ ms: Number(process.hrtime.bigint() - started) / 1e6, ok: false, error:e.code || e.message, label: spec.label }));
     if (payload) req.write(payload);
     req.end();
   });
 }
 
 // `concurrency` virtual users each issue requests back-to-back until `requests` have completed.
-async function runLoad({ baseUrl, concurrency, requests, makeRequest, thinkMs = 0 }) {
+async function runLoad({ baseUrl, concurrency, requests, makeRequest, thinkMs = 0, durationMs = 0 }) {
   const agent = new http.Agent({ keepAlive: true, maxSockets: concurrency });
   const results = [];
   let next = 0;
   const started = Date.now();
   await Promise.all(Array.from({ length: concurrency }, async (_, vu) => {
-    while (next < requests) {
+    while (durationMs ? Date.now() - started < durationMs : next < requests) {
       const n = next++;
       results.push(await request(agent, baseUrl, makeRequest(vu, n)));
       if (thinkMs) await new Promise((r) => setTimeout(r, Math.random() * 2 * thinkMs)); // mean = thinkMs
@@ -95,6 +97,7 @@ async function runLoad({ baseUrl, concurrency, requests, makeRequest, thinkMs = 
   }));
   agent.destroy();
   const out = summarize(results, Date.now() - started);
+  out.elapsedMs = Date.now() - started;
   const labels = [...new Set(results.map((r) => r.label).filter(Boolean))];
   out.byLabel = Object.fromEntries(labels.map((l) => [l, summarize(results.filter((r) => r.label === l), 1000)]));
   return out;
@@ -109,6 +112,7 @@ function summarize(results, elapsedMs) {
     count: lat.length, errors: results.filter((r) => !r.ok).length, avgMs: avg,
     p50Ms: percentile(lat, 0.5), p95Ms: percentile(lat, 0.95), maxMs: lat[lat.length - 1],
     rps: lat.length / (elapsedMs / 1000),
+    errorSamples: results.filter((r) => !r.ok).slice(0, 10),
   };
 }
 

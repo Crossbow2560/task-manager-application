@@ -26,7 +26,7 @@ async function findPending(now = new Date()) {
      LEFT JOIN notifications n ON n.task_id = t.id AND n.user_id = u.id AND n.kind = 'due_reminder'
      WHERE t.status <> 'done' AND u.is_active = true
        AND t.due_date >= $1 AND t.due_date <= $2
-       AND n.id IS NULL`,
+       AND (n.id IS NULL OR n.sent_at IS NULL)`,
     [from, to],
   );
   return rows;
@@ -41,15 +41,18 @@ async function scanAndEnqueue(now = new Date()) {
 async function deliver({ taskId, userId, email, title, dueDate }) {
   const due = dueDate instanceof Date ? day(dueDate) : String(dueDate).slice(0, 10);
   const message = `Reminder: "${title}" is due on ${due}.`;
-  const seen = await db.query("SELECT id FROM notifications WHERE task_id = $1 AND user_id = $2 AND kind = 'due_reminder'", [taskId, userId]);
-  if (seen.rows.length) return;
+  const seen = await db.query("SELECT id, sent_at FROM notifications WHERE task_id = $1 AND user_id = $2 AND kind = 'due_reminder'", [taskId, userId]);
+  if (seen.rows[0] && seen.rows[0].sent_at) return;
+  if (!seen.rows.length) {
   try {
     await db.query("INSERT INTO notifications (user_id, task_id, kind, message) VALUES ($1, $2, 'due_reminder', $3)", [userId, taskId, message]);
   } catch (e) {
-    if (e.code === '23505' || /unique|duplicate/i.test(e.message)) return; // lost a race; already notified
+    if (e.code === '23505' || /unique|duplicate/i.test(e.message)) return; // another scanner owns this attempt
     throw e;
   }
+  }
   await provider.send({ to: email, subject: `Task due soon: ${title}`, body: message });
+  await db.query("UPDATE notifications SET sent_at = now() WHERE task_id = $1 AND user_id = $2 AND kind = 'due_reminder'", [taskId, userId]);
 }
 
 function startScheduler() {

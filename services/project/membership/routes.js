@@ -8,6 +8,18 @@ const { ROLES, getMemberRole } = require('../model');
 
 const router = express.Router();
 
+router.get('/projects/:id/members', requireAuth, async (req, res, next) => {
+  try {
+    const projectId = Number(req.params.id);
+    if (!Number.isInteger(projectId)) throw notFound('Project not found');
+    if (!(await getMemberRole(projectId, req.user.id))) throw forbidden('Not a member of this project');
+    const { rows } = await db.query(
+      `SELECT u.id, u.email, u.display_name, u.is_active, m.role FROM project_members m
+       JOIN users u ON u.id = m.user_id WHERE m.project_id = $1 ORDER BY u.id`, [projectId]);
+    res.json(rows.map((u) => ({ userId: u.id, email: u.email, displayName: u.display_name, role: u.role, isActive: u.is_active })));
+  } catch (e) { next(e); }
+});
+
 const toId = (v) => (/^\d+$/.test(String(v)) ? Number(v) : null);
 
 // Loads the project and checks that the caller manages it. 404 if it doesn't exist, 403 otherwise.

@@ -20,7 +20,8 @@ function validate(body) {
 
 const toTask = (r) => ({
   id: r.id, projectId: r.project_id, creatorId: r.creator_id, title: r.title, description: r.description,
-  dueDate: r.due_date, priority: r.priority, status: r.status, createdAt: r.created_at,
+  dueDate: r.due_date instanceof Date ? r.due_date.toISOString().slice(0, 10) : r.due_date,
+  priority: r.priority, status: r.status, createdAt: r.created_at,
 });
 
 router.post('/projects/:id/tasks', requireAuth, async (req, res, next) => {

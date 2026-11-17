@@ -26,11 +26,16 @@ describe('requireAuth', () => {
   a.get('/me', requireAuth, (req, res) => res.json(req.user));
   a.get('/boom', () => { throw new Error('x'); });
   a.use(errorHandler);
-  const { accessToken, refreshToken } = signTokens({ id: 7, role: 'member' });
+  let accessToken, refreshToken, userId;
+  beforeAll(async () => {
+    const r = await request(app).post('/auth/register').send({email:'middleware@example.com',password:'Secret123',displayName:'Middleware'});
+    userId = r.body.id;
+    ({ accessToken, refreshToken } = signTokens({ id: userId, role: 'member' }));
+  });
 
   test('accepts access token', async () => {
     const r = await request(a).get('/me').set('Authorization', `Bearer ${accessToken}`);
-    expect(r.body).toEqual({ id: 7, role: 'member' });
+    expect(r.body).toEqual({ id: userId, role: 'member' });
   });
   test('rejects missing, refresh and garbage tokens', async () => {
     expect((await request(a).get('/me')).status).toBe(401);

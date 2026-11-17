@@ -36,6 +36,7 @@ test('global admin acts as a manager', async () => {
   const p = (await request(app).post('/projects').set('Authorization', bob.auth).send({ name: 'Q' })).body;
   const t = (await request(app).post(`/projects/${p.id}/tasks`).set('Authorization', bob.auth).send({ title: 'T2' })).body;
   const { signTokens } = require('../../../src/middleware/auth');
+  await db.query("UPDATE users SET role = 'admin' WHERE id = $1", [cat.id]);
   const admin = signTokens({ id: cat.id, role: 'admin' }).accessToken;
   expect((await request(app).delete(`/tasks/${t.id}`).set('Authorization', `Bearer ${admin}`)).status).toBe(204);
 });
