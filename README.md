@@ -109,6 +109,7 @@ Sprint 1 is a **retrospective API reconstruction**, not a claim that the older s
 - [Branch Coverage Report](docs/Branch_Coverage_Report.md)
 - [Browsable coverage](docs/reports/coverage/lcov-report/index.html), [raw evidence](docs/validation/evidence/), [video index](docs/videos/README.md)
 - [Incremental account-chooser validation](docs/validation/DEMO_LOGIN_VALIDATION.md)
+- [Acceptance follow-up: owner PR reviews and remaining human/time/platform evidence](docs/validation/ACCEPTANCE_FOLLOWUP.md)
 
 | Captured check | Result / scope |
 |---|---|

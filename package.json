@@ -14,7 +14,8 @@
     "validate:monitor": "node scripts/validation/monitor.js",
     "seed:demo": "node scripts/seed-demo.js",
     "record:sprint1": "node scripts/validation/record-videos.js sprint1",
-    "record:sprint2": "node scripts/validation/record-videos.js final"
+    "record:sprint2": "node scripts/validation/record-videos.js final",
+    "record:browser-matrix": "node scripts/validation/browser-matrix.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

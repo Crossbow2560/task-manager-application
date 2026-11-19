@@ -1,0 +1,17 @@
+[
+  {
+    "browser": "Chrome",
+    "version": "158.0.8127.36",
+    "deviceOs": "Windows 11",
+    "testedAt": "2026-11-19T15:21:45.777Z",
+    "baseUrl": "http://127.0.0.1:3100",
+    "scenarios": {
+      "registerLogin": "NOT_RUN",
+      "createEditAssignComment": "NOT_RUN",
+      "searchFilterDashboard": "NOT_RUN",
+      "keyboard360px": "NOT_RUN"
+    },
+    "evidence": [],
+    "notes": "Installation/version confirmed locally. Application workflow could not be executed in this environment because no database server is available."
+  }
+]
